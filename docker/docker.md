@@ -113,4 +113,25 @@ tcpdump -i eno网卡 -vnn icmp
 ```
 
 
+### docker的数据管理
++ 数据卷
+```shell
+# -v 挂载数据卷 
+docker run -it --name node -v /data centos sh
+
+# -v 挂载目录  --rm 退出容器时删除 
+docker run -it --rm -v /opt/:/opt/ centos sh
+
+# -v 挂载文件  ro是文件权限
+docker run -it --rm -v /etc/hosts:/opt/hosts:ro centos sh
+```
+
++ 数据卷容器
+```shell
+# --volumes-from 把node作为数据卷挂载到node01上， node容器运行与否都不影响
+docker run -it --name node01 --volumes-from node centos sh 
+
+# 删除时一定要加 -v 把挂载数据卷给删掉
+docker rm -fv node01
+```
 
