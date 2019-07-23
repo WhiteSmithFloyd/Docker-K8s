@@ -138,3 +138,14 @@ docker run -it --name node01 --volumes-from node centos sh
 docker rm -fv node01
 ```
 
+### docker容器编排
+单机编排工具 docker-compose
+```shell
+# 
+yum install python-pip -y 
+
+# 
+pip install docker-compose
+
+```
+
