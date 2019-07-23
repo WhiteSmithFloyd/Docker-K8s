@@ -85,9 +85,31 @@ bridge
 host  docker通讯完全走物理网卡 多个容器时会地址冲突
 none
 
+```
 
-# docker跨主机互联
 
+
+
+### docker跨主机互联
+172.17.0.1是docker默认的网段，如果两个docker进程不加修改的话，都会同时是172.17.0.1形成回环，所以要修改docker的默认网段
+``` shell
+vi /usr/lib/systemd/system/docker.service 
+--bip=172.17.42.1/24
+
+systemctl deamon-reload
+systemctl restart docker 
+
+
+# 给两台宿主机添加路由
+# node1 Server
+route add -net docker1_IP:24 gw node2_IP
+
+```
+
+### 抓包
+``` shell
+yum install tcpdump -y 
+tcpdump -i eno网卡 -vnn icmp
 ```
 
 
