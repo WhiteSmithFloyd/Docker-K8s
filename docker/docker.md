@@ -22,5 +22,73 @@ docker load < /tmp/nginx.tar.gz
 
 ```
 
+```docker
+
+vim  /usr/lib/systemd/system/docker.service 
+
+
+docker deamon --help 
+
+nameserver 
+vi /etc/resolv.conf 
+
+
+ctrl + P + Q --退出但不关闭当前容器 即docker ps可查看到 
+
+docker run -it alpine sh
+# -p 端口映射 第一个是宿主器的端口 第二是container的端口
+docker run -it -d  -p 8088:80/udp --name myNginx nginx 
+ 
+docker ps 
+
+docker rm -f containerId/name
+docker rmi imageId
+
+--查看容器详情
+docker inspect containerId/name
+
+--进入容器
+不推荐
+docker attach containerId/name
+推荐
+docker exec -it containerId/name bin/bash
+不推荐
+使用namespace进入进程
+# for nstat
+yum install util-linux 
+pid=`docker inspect --format "{{.State.Pid}}" $1`
+nsenter -t $pid -m -u -i -n -p
+
+# 日志
+docker logs -f containerId/name 
+
+
+# 本地提交镜像 
+-- docker commit [comment] containerName  imageName:tagNumber
+docker commit -m 'comment' ContainerName  hevo/imageName:v1 
+
+# 上传镜像 
+docker login 
+docker images 获取制作的镜像ID
+docker tag 镜像ID URL地址
+docker push URL地址
+
+
+
+# 容器之间互联 可以使得web2和web1之间能够IP互联  其中--link后面的别名很重要 
+docker run --name web2 --link web1:alias -p 8080:80 containerName cmd
+
+
+# docker默认网络
+docker network ls 
+bridge 
+host  docker通讯完全走物理网卡 多个容器时会地址冲突
+none
+
+
+# docker跨主机互联
+
+```
+
 
 
