@@ -22,6 +22,9 @@ docker load < /tmp/nginx.tar.gz
 
 ```
 
+### 添加epel源
+` wget -0 /etc/yum.repos.d/epel.repo http://mirrors.aliyun.com/repo/epel-7.repo `
+
 ```docker
 
 vim  /usr/lib/systemd/system/docker.service 
